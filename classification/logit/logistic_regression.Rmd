@@ -33,7 +33,8 @@ library(ggplot2) # for visualization
 library(ggthemes) # for custom visualization
 library(broom) # needing for tidying model summary output into a df
 ```
-
+# Logistic Model Assumptions
+The first assumption for a logistic regression model is the independence of error terms from the predictors. By extension, there must be no duplicates in the data, or else the error term will be correlated. The second assumption is that each continious independent variable must be linearly related to the logit of the outcome. One could check it using lowess smoothing of the scatterplot between the variable of interest and the binary response. Box-Tidall transformation has also been used extensively. The third assumption is the absence of multicollinearity. This can be checked using the vif function in R. The last assumption that underpins a robust logistic model is the absence of outliers, as the model (all GLMs) are not robust to outliers. Continious outliers can be checked using simple box plots. 
 # Importing, Exploring, Cleaning, Normalizing / Centering, and Prepping the Data
 
 ## Importing the Data
@@ -217,7 +218,9 @@ corrplot(corr_matrix, method = "number", type = "upper", pch.cex = .9,
 
 Takeways from these types of exploratory techniques can help us to create a more informed model. We may, depending on the circumstances, treat variables differently in our model-building process as a result of these types of charts. For example, we might discover a great degree of cross-correlation that allows us to delete duplicative variables, etc. We can notice a few interesting trends from our results above in this case:
 
-Residual sugar and density are highly positively correlated, while alcohol and density are highly negatively correlated. These correlations are also significant. While most of these are intuitive, we might do well to remember these cross-correlations when it comes time to do dimensionality reduction with this model (if necessary). All in all, it seems as though there are a few interesting relationships to be explored here, but nothing that appears concerning from the perspective of very high degree of multicolinearity. 
+Residual sugar and density are highly positively correlated, while alcohol and density are highly negatively correlated. These correlations are also significant. While most of these are intuitive, we might do well to remember these cross-correlations when it comes time to do dimensionality reduction with this model (if necessary). All in all, it seems as though there are a few interesting relationships to be explored here, but nothing that appears concerning from the perspective of very high degree of multicolinearity.
+
+Due to the potential for categorical variables to appear as features, VIF or variance inflation factor is a more robust check for multicolinearity as it checks for collinearity between categorical variables and continious variables.
 
 ## Prepping Data for the Modeling Process
 
